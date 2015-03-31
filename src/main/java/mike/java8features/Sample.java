@@ -14,4 +14,5 @@ public class Sample {
         list = list.stream().filter(i -> i > 5 ).collect(Collectors.toList());
         System.out.println("filtered list: " + list);
     }
+
 }
