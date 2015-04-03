@@ -3,12 +3,47 @@
 <log4j:configuration>
     <appender name="LOG_FILE" class="org.apache.log4j.DailyRollingFileAppender">
         <param name="DatePattern" value="'.'yyyy-MM-dd"/>
-        <param name="File" value="~/dev/log.txt"/>
+        <param name="File" value="log.txt"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
                    value="%-5p %d{ISO8601} [%t] %c{3} %X{UID} %m%n"/>
         </layout>
     </appender>
+
+    <appender name="LOG_FILE2" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="File" value="log2.txt"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%-5p %d{ISO8601} [%t] %c{3} %X{UID} %m%n"/>
+        </layout>
+    </appender>
+
+
+    <logger name="jdbc.sqlonly" additivity="false">
+        <level value="debug"/>
+        <appender-ref ref="LOG_FILE"/>
+    </logger>
+
+    <logger name="jdbc.sqltiming" additivity="false">
+        <level value="ERROR"/>
+        <appender-ref ref="LOG_FILE2"/>
+    </logger>
+
+    <logger name="jdbc.audit" additivity="false">
+        <level value="ERROR"/>
+        <appender-ref ref="LOG_FILE2"/>
+    </logger>
+
+    <logger name="jdbc.connection" additivity="false">
+        <level value="ERROR"/>
+        <appender-ref ref="LOG_FILE2"/>
+    </logger>
+
+    <logger name="jdbc.resultset" additivity="false">
+        <level value="ERROR"/>
+        <appender-ref ref="LOG_FILE2"/>
+    </logger>
 
     <root>
         <level value="INFO"/>
