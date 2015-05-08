@@ -1,6 +1,7 @@
 package mike.java8features.lambda_scopes;
 
 import mike.java8features.Converter;
+import mike.java8features.default_methods.Animal;
 
 public class Driver {
     static int staticNum = 5;
@@ -12,7 +13,7 @@ public class Driver {
         showLocalOuterVariableAccess();
         showStaticVariableAccess();
         new Driver().showInstanceVariableAccess();
-        showDefaultInterfaceAccessProhibited();
+        showDefaultInterfaceMethodAccessProhibited();
 
     }
 
@@ -56,7 +57,18 @@ public class Driver {
         System.out.println("converting 8 & modifying outer instance variable: " + converter.convert(8));
     }
 
-    private static void showDefaultInterfaceAccessProhibited() {
+    private static void showDefaultInterfaceMethodAccessProhibited() {
+        // Lambdas CANNOT access default interface methods
+        //*COMPILE ERROR:*/ Animal a = legCount -> getAge();
+
+        // Whereas anonymous objects can
+        Animal legPerYear = new Animal() {
+            @Override
+            public int getLegCount() {
+                return getAge();
+            }
+        };
+        System.out.println("The animal has : " + legPerYear.getLegCount() + " legs");
     }
 
 
